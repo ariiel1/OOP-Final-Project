@@ -19,13 +19,13 @@ public class StudentImplement implements StudentInterface{
         
         try{
             java.sql.Connection con = StudentSQL.getConnection();
-            String sql = "INSERT INTO students(fname, lname, grade) VALUES (?,?,?)";    //xql statement
+            String sql = "INSERT INTO students(fname, lname, grade) VALUES (?,?,?)";    //sql statement
             java.sql.PreparedStatement ps = con.prepareStatement(sql);                  //(insert into database)
             //getting the values for the statement  
             ps.setString(1, students.getFname());
             ps.setString(2, students.getLname());
             ps.setInt(3, students.getGrade());
-            ps.executeUpdate(); //executes xql statement
+            ps.executeUpdate(); //executes sql statement
             JOptionPane.showMessageDialog(null, "Saved");
         } 
         catch (Exception e){        
@@ -39,14 +39,14 @@ public class StudentImplement implements StudentInterface{
         
         try{
             java.sql.Connection con = StudentSQL.getConnection();
-            String sql = "UPDATE students SET fname=?,lname=?,grade=? WHERE id=?";  //xql statement
+            String sql = "UPDATE students SET fname=?,lname=?,grade=? WHERE id=?";  //sql statement
             java.sql.PreparedStatement ps = con.prepareStatement(sql);              //(update values wherever id is)
             //getting the values for the statement
             ps.setString(1, students.getFname());
             ps.setString(2, students.getLname());
             ps.setInt(3, students.getGrade());
             ps.setInt(4, students.getId());
-            ps.executeUpdate(); //executes xql statement
+            ps.executeUpdate(); //executes sql statement
             JOptionPane.showMessageDialog(null, "Updated");
         }
         catch (Exception e){
@@ -60,11 +60,11 @@ public class StudentImplement implements StudentInterface{
         
         try{
             java.sql.Connection con = StudentSQL.getConnection();
-            String sql = "delete from students WHERE id=?";             //xql statement                          
+            String sql = "delete from students WHERE id=?";             //sql statement                          
             java.sql.PreparedStatement ps = con.prepareStatement(sql);  //(delete from database wherever id is)
             //getting the values for the statement
             ps.setInt(1, students.getId());
-            ps.executeUpdate(); //executes xql statement
+            ps.executeUpdate(); //executes sql statement
             JOptionPane.showMessageDialog(null, "Deleted Successfully");
         }
         catch(Exception e){
@@ -81,12 +81,12 @@ public class StudentImplement implements StudentInterface{
         Student st = new Student();
         try{
             java.sql.Connection con = StudentSQL.getConnection();
-            String sql = "SELECT * FROM students WHERE id=?";           //xql statement
+            String sql = "SELECT * FROM students WHERE id=?";           //sql statement
             java.sql.PreparedStatement ps = con.prepareStatement(sql);  //(select from database wherever id is)
             //getting the value for the statement
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 st.setId(rs.getInt("id"));
                 st.setFname(rs.getString("fname"));
                 st.setLname(rs.getString("lname"));
@@ -106,7 +106,7 @@ public class StudentImplement implements StudentInterface{
         List<Student> list = new ArrayList<Student>();
         try{
             java.sql.Connection con = StudentSQL.getConnection();
-            String sql = "SELECT * FROM students";                      //xql statement
+            String sql = "SELECT * FROM students";                      //sql statement
             java.sql.PreparedStatement ps = con.prepareStatement(sql);  //(select everything from database)
             ResultSet rs = ps.executeQuery();
             
